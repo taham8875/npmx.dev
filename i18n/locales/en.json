@@ -473,6 +473,8 @@
     "empty_collection": "This collection is empty.",
     "by": "by {'@'}{handle}",
     "item_count": "{count} item | {count} items",
+    "like": "Like this collection",
+    "unlike": "Unlike this collection",
     "duplicate": "Duplicate",
     "delete_title": "Delete this collection?",
     "delete_body": "This can't be undone.",
@@ -511,6 +513,11 @@
       "too_many_items": "Remove {count} item. A collection holds up to {max}. | Remove {count} items. A collection holds up to {max}.",
       "too_long": "Shorten the text. The name can be up to {name} characters, the description {description} and each note {note}."
     },
+    "follow": "Follow",
+    "following": "Following",
+    "follow_label": "Follow this collection",
+    "unfollow_label": "Unfollow this collection",
+    "followers": "{count} follower | {count} followers",
     "your_data": {
       "summary": "It's your data",
       "body": "Collections live in your Atmosphere account, not on npmx. They're open, public data on the {atproto}: create, view and change them here, in any other app, or with your own scripts, and take them wherever you go. Have fun with it!",

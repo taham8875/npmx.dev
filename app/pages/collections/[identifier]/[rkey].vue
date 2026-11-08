@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CollectionView } from '#shared/types/social'
+import type { CollectionView, ReactionState } from '#shared/types/social'
 import type { CommandPaletteContextCommandInput } from '~/types/command-palette'
 import {
   collectionPath,
@@ -31,6 +31,17 @@ if (!collection.value || error.value) {
 
 const { user } = useAtproto()
 const isOwner = computed(() => !!user.value?.did && user.value.did === collection.value?.did)
+
+// useFetch data is a shallow ref, so replace rather than mutate
+const reactionModel = (key: 'likes' | 'follows') =>
+  computed<ReactionState>({
+    get: () => collection.value?.[key] ?? { total: 0, viewerHas: false },
+    set: value => {
+      if (collection.value) collection.value = { ...collection.value, [key]: value }
+    },
+  })
+const likes = reactionModel('likes')
+const follows = reactionModel('follows')
 
 const isEditing = shallowRef(false)
 async function startEditing() {
@@ -92,6 +103,8 @@ const duplicateRoute = computed(() => ({
   query: { from: `${collection.value?.did}/${collection.value?.rkey}` },
 }))
 
+const likeButton = useTemplateRef('likeButton')
+const followButton = useTemplateRef('followButton')
 useCommandPaletteContextCommands(
   computed((): CommandPaletteContextCommandInput[] => {
     const current = collection.value
@@ -99,14 +112,34 @@ useCommandPaletteContextCommands(
     const keywords = [current.name, current.handle]
     const commands: CommandPaletteContextCommandInput[] = [
       {
-        id: 'collection-duplicate',
+        id: 'collection-like',
         group: 'actions',
-        label: $t('collections.duplicate'),
+        label: current.likes.viewerHas ? $t('collections.unlike') : $t('collections.like'),
         keywords,
-        iconClass: 'i-lucide:copy',
-        to: duplicateRoute.value,
+        iconClass: current.likes.viewerHas ? 'i-lucide:heart-minus' : 'i-lucide:heart-plus',
+        action: () => likeButton.value?.toggle(),
       },
     ]
+    if (!isOwner.value) {
+      commands.push({
+        id: 'collection-follow',
+        group: 'actions',
+        label: current.follows.viewerHas
+          ? $t('collections.unfollow_label')
+          : $t('collections.follow_label'),
+        keywords,
+        iconClass: current.follows.viewerHas ? 'i-lucide:bell-ring' : 'i-lucide:bell-plus',
+        action: () => followButton.value?.toggle(),
+      })
+    }
+    commands.push({
+      id: 'collection-duplicate',
+      group: 'actions',
+      label: $t('collections.duplicate'),
+      keywords,
+      iconClass: 'i-lucide:copy',
+      to: duplicateRoute.value,
+    })
     if (isOwner.value && !isEditing.value) {
       commands.push(
         {
@@ -171,6 +204,20 @@ defineOgImage(
       <p v-if="collection.description" class="text-fg-muted">{{ collection.description }}</p>
 
       <div class="flex flex-wrap items-center gap-3">
+        <CollectionLikeButton
+          ref="likeButton"
+          v-model="likes"
+          :identifier="collection.did"
+          :rkey="collection.rkey"
+        />
+        <!-- Owners follow their own collections implicitly -->
+        <CollectionFollowButton
+          v-if="!isOwner"
+          ref="followButton"
+          v-model="follows"
+          :identifier="collection.did"
+          :rkey="collection.rkey"
+        />
         <LinkBase variant="button-secondary" classicon="i-lucide:copy" :to="duplicateRoute">
           {{ $t('collections.duplicate') }}
         </LinkBase>

@@ -379,6 +379,8 @@
     "empty_collection": "Cette collection est vide.",
     "by": "par {'@'}{handle}",
     "item_count": "{count} élément | {count} éléments",
+    "like": "Aimer cette collection",
+    "unlike": "Ne plus aimer cette collection",
     "duplicate": "Dupliquer",
     "delete_title": "Supprimer cette collection ?",
     "delete_body": "Cette action est irréversible.",
@@ -417,6 +419,11 @@
       "too_many_items": "Retirez {count} élément. Une collection en contient au maximum {max}. | Retirez {count} éléments. Une collection en contient au maximum {max}.",
       "too_long": "Raccourcissez le texte. Le nom peut compter jusqu'à {name} caractères, la description {description} et chaque note {note}."
     },
+    "follow": "Suivre",
+    "following": "Suivie",
+    "follow_label": "Suivre cette collection",
+    "unfollow_label": "Ne plus suivre cette collection",
+    "followers": "{count} abonné | {count} abonnés",
     "your_data": {
       "summary": "Ce sont vos données",
       "body": "Les collections sont stockées dans votre compte Atmosphere, pas chez npmx. Ce sont des données ouvertes et publiques sur l'{atproto} : créez-les, consultez-les et modifiez-les ici, dans n'importe quelle autre application ou avec vos propres scripts, et emportez-les où vous voulez. Amusez-vous bien !",
