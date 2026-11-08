@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import type { CollectionSummary } from '#shared/types/social'
+import { CURATED_COLLECTION_DIDS } from '#shared/utils/constants'
 
-defineProps<{
+const props = defineProps<{
   collection: CollectionSummary
 }>()
+
+const isCurated = computed(() => CURATED_COLLECTION_DIDS.has(props.collection.did))
 </script>
 
 <template>
@@ -15,9 +18,12 @@ defineProps<{
     class="block h-full"
   >
     <BaseCard class="flex h-full flex-col gap-2 min-w-0">
-      <h3 class="font-mono text-base font-medium truncate min-w-0" :title="collection.name">
-        {{ collection.name }}
-      </h3>
+      <div class="flex items-start justify-between gap-3 min-w-0">
+        <h3 class="font-mono text-base font-medium truncate min-w-0" :title="collection.name">
+          {{ collection.name }}
+        </h3>
+        <CollectionCuratedBadge v-if="isCurated" class="shrink-0" />
+      </div>
       <p class="font-mono text-sm text-fg-muted truncate">
         {{ $t('collections.by', { handle: collection.handle }) }}
       </p>
