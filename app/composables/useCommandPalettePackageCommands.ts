@@ -16,6 +16,7 @@ export function useCommandPalettePackageCommands(
   const { t } = useI18n()
   const route = useRoute()
   const { announce, close } = useCommandPalette()
+  const { open: openAddToCollection } = useAddToCollection()
 
   function isCurrentPackageCompare(packageName: string) {
     const packages = route.query.packages
@@ -141,6 +142,15 @@ export function useCommandPalettePackageCommands(
             packages: resolvedContext.packageName,
           },
         },
+      })
+
+      commands.push({
+        id: 'package-add-to-collection',
+        group: 'package',
+        label: t('command_palette.package.add_to_collection'),
+        keywords: [resolvedContext.packageName, t('collections.title')],
+        iconClass: 'i-lucide:bookmark-plus',
+        action: () => openAddToCollection([resolvedContext.packageName]),
       })
 
       if (resolvedContext.tarballUrl) {
