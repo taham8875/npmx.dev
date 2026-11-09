@@ -350,8 +350,8 @@ importers:
         specifier: npm:h3@2.0.1-rc.26
         version: h3@2.0.1-rc.26(crossws@0.4.15)
       knip:
-        specifier: 6.44.1
-        version: 6.44.1
+        specifier: 6.44.2
+        version: 6.44.2
       markdown-it-anchor:
         specifier: 10.0.0
         version: 10.0.0(@types/markdown-it@14.1.2)(markdown-it@14.3.0)
@@ -7884,8 +7884,8 @@ packages:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
 
-  knip@6.44.1:
-    resolution: {integrity: sha512-Hbd8nvkIsNgFfXgC7Jsb5LHv7jj6VwA3tmfHd53XPX2z9Vc9RnAZqV0BIiP4OrtYqKwCoLseFHQZerb1bNlbSw==}
+  knip@6.44.2:
+    resolution: {integrity: sha512-6URO7pnqtOnyvSsXfW6+8C9j1lfcicxUCysXO0RgMtHTZ96HqCXh29op8iabeQW5JeIc8dJWwzSdJVWDokeScQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -19786,7 +19786,7 @@ snapshots:
 
   klona@2.0.6: {}
 
-  knip@6.44.1:
+  knip@6.44.2:
     dependencies:
       formatly: 0.11.4
       get-tsconfig: 4.14.3
